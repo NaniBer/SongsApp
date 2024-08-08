@@ -5,6 +5,7 @@ const {
   getSongs,
   updateSong,
   deleteSong,
+  countSongs,
 } = require("../controller/songsController");
 const router = express.Router();
 router.get("/", async (req, res) => {
@@ -139,6 +140,21 @@ router.delete("/deleteSong/:id", async (req, res) => {
       message: result.message,
       song: result.song,
     });
+  } catch (error) {
+    console.error("Error deleting song:", error);
+    res.status(500).json({
+      success: false,
+      statusCode: 500,
+      message: "Internal server error occurred while deleting the song.",
+    });
+  }
+});
+
+router.get("/countSongs/:id", async (req, res) => {
+  const userid = req.params.id;
+  try {
+    const result = await countSongs(userid);
+    console.log(result);
   } catch (error) {
     console.error("Error deleting song:", error);
     res.status(500).json({

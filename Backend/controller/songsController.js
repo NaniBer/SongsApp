@@ -135,9 +135,32 @@ const deleteSong = async (songId) => {
   }
 };
 
+//count songs
+const countSongs = async (userid) => {
+  const totalSongs = await Songs.countDocuments();
+  const totalArtists = await Songs.distinct("artist", {
+    user: userid,
+  }).countDocuments();
+  const totalAlbums = await Songs.distinct("album", {
+    user: userid,
+  }).countDocuments();
+  const totalGenres = await Songs.distinct("genre", {
+    user: userid,
+  }).countDocuments();
+  console.log(totalGenres);
+
+  return {
+    totalSongs: totalSongs,
+    totalArtists: totalArtists,
+    totalAlbums: totalAlbums,
+    totalGenres: totalGenres,
+  };
+};
+
 module.exports = {
   addSongs,
   getSongs,
   updateSong,
   deleteSong,
+  countSongs,
 };
