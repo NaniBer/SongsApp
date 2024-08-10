@@ -6,6 +6,9 @@ const {
   updateSong,
   deleteSong,
   countSongs,
+  searchByAlbum,
+  searchByArtist,
+  searchSong,
 } = require("../controller/songsController");
 const router = express.Router();
 router.get("/", async (req, res) => {
@@ -154,13 +157,117 @@ router.get("/countSongs/:id", async (req, res) => {
   const userid = req.params.id;
   try {
     const result = await countSongs(userid);
-    console.log(result);
+
+    // Send the result back in the response
+    res.status(200).json({
+      success: true,
+      statusCode: 200,
+      data: result, // Return the counting result
+      message: "Songs counted successfully",
+    });
   } catch (error) {
-    console.error("Error deleting song:", error);
+    console.error("Error counting songs:", error);
+
+    // Handle any errors that occur
     res.status(500).json({
       success: false,
       statusCode: 500,
-      message: "Internal server error occurred while deleting the song.",
+      message: "Internal server error occurred while counting the songs.",
+    });
+  }
+});
+
+router.get("/searchByAlbum", async (req, res) => {
+  const { userid, album } = req.body;
+
+  try {
+    const result = await searchByAlbum(userid, album);
+
+    // Check if the search was successful
+    if (result.success) {
+      res.status(result.statusCode).json({
+        success: result.success,
+        statusCode: result.statusCode,
+        data: result.data,
+        message: result.message,
+      });
+    } else {
+      // Handle the case where the search was not successful
+      res.status(result.statusCode).json({
+        success: result.success,
+        statusCode: result.statusCode,
+        message: result.message,
+      });
+    }
+  } catch (error) {
+    console.error("Error searching songs by album:", error);
+
+    // Handle any unexpected errors
+    res.status(500).json({
+      success: false,
+      statusCode: 500,
+      message:
+        "Internal server error occurred while searching for songs by album.",
+    });
+  }
+});
+
+router.get("/searchByArtist", async (req, res) => {
+  const { userid, artist } = req.body;
+
+  try {
+    const result = await searchByArtist(userid, artist);
+
+    // Check if the search was successful
+    if (result.success) {
+      res.status(result.statusCode).json({
+        success: result.success,
+        statusCode: result.statusCode,
+        data: result.data,
+        message: result.message,
+      });
+    } else {
+      // Handle the case where the search was not successful
+      res.status(result.statusCode).json({
+        success: result.success,
+        statusCode: result.statusCode,
+        message: result.message,
+      });
+    }
+  } catch (error) {
+    console.error("Error searching songs by album:", error);
+
+    // Handle any unexpected errors
+    res.status(500).json({
+      success: false,
+      statusCode: 500,
+      message:
+        "Internal server error occurred while searching for songs by album.",
+    });
+  }
+});
+
+router.get("/searchSong", async (req, res) => {
+  const { userid, title } = req.query; // Use req.query for query parameters
+
+  try {
+    const result = await searchSong(userid, title);
+
+    // Send the result back to the client
+    res.status(result.statusCode).json({
+      success: result.success,
+      statusCode: result.statusCode,
+      message: result.message,
+      data: result.data,
+    });
+  } catch (error) {
+    console.error("Error processing searchSong request:", error);
+
+    // Handle any unexpected errors
+    res.status(500).json({
+      success: false,
+      statusCode: 500,
+      message: "Internal server error occurred while processing the request.",
     });
   }
 });

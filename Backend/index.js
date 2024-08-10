@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const user = require("./routes/userRoute");
 const guest = require("./routes/GuestRoute");
+const playlist = require("./routes/playlistRoute");
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(
 );
 app.use("/user", user);
 app.use("/guest", guest);
+app.use("/playlist", playlist);
 
 mongoose
   .connect(url)

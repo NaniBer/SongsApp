@@ -137,24 +137,100 @@ const deleteSong = async (songId) => {
 
 //count songs
 const countSongs = async (userid) => {
-  const totalSongs = await Songs.countDocuments();
-  const totalArtists = await Songs.distinct("artist", {
-    user: userid,
-  }).countDocuments();
-  const totalAlbums = await Songs.distinct("album", {
-    user: userid,
-  }).countDocuments();
-  const totalGenres = await Songs.distinct("genre", {
-    user: userid,
-  }).countDocuments();
-  console.log(totalGenres);
+  try {
+    // Using Promise.all to execute all queries in parallel for better performance
+    const [songs, artists, albums, genres] = await Promise.all([
+      Songs.find({ user: userid }).select("_id"), // Only select _id to minimize data transfer
+      Songs.distinct("artist", { user: userid }),
+      Songs.distinct("album", { user: userid }),
+      Songs.distinct("genre", { user: userid }),
+    ]);
 
-  return {
-    totalSongs: totalSongs,
-    totalArtists: totalArtists,
-    totalAlbums: totalAlbums,
-    totalGenres: totalGenres,
-  };
+    // Counting the lengths of each result
+    const totalSongs = songs.length;
+    const totalArtists = artists.length;
+    const totalAlbums = albums.length;
+    const totalGenres = genres.length;
+
+    return {
+      totalSongs,
+      totalArtists,
+      totalAlbums,
+      totalGenres,
+    };
+  } catch (error) {
+    console.error("Error counting songs data:", error);
+    return {
+      success: false,
+      message: "Failed to count songs data",
+      error: error.message,
+    };
+  }
+};
+
+const searchByAlbum = async (userid, album) => {
+  try {
+    const songs = await Songs.find({ user: userid, album: album });
+
+    return {
+      success: true,
+      statusCode: 200,
+      data: songs,
+      message:
+        songs.length > 0 ? "Songs found" : "No songs found in this album",
+    };
+  } catch (error) {
+    console.error("Error searching songs by album:", error);
+    return {
+      success: false,
+      statusCode: 500,
+      message:
+        "Internal server error occurred while searching for songs by album.",
+    };
+  }
+};
+
+const searchByArtist = async (userid, artist) => {
+  try {
+    const songs = await Songs.find({ user: userid, artist: artist });
+
+    return {
+      success: true,
+      statusCode: 200,
+      data: songs,
+      message:
+        songs.length > 0 ? "Songs found" : "No songs found for this artist",
+    };
+  } catch (error) {
+    console.error("Error searching songs by artist:", error);
+    return {
+      success: false,
+      statusCode: 500,
+      message:
+        "Internal server error occurred while searching for songs by artist.",
+    };
+  }
+};
+
+const searchSong = async (userid, title) => {
+  try {
+    const song = await Songs.find({ user: userid, title: title });
+
+    return {
+      success: true,
+      statusCode: 200,
+      data: song,
+      message: song.length > 0 ? "Song(s) found" : "No songs found",
+    };
+  } catch (error) {
+    console.error("Error searching songs by title:", error);
+    return {
+      success: false,
+      statusCode: 500,
+      message:
+        "Internal server error occurred while searching for songs by title.",
+    };
+  }
 };
 
 module.exports = {
@@ -163,4 +239,7 @@ module.exports = {
   updateSong,
   deleteSong,
   countSongs,
+  searchByAlbum,
+  searchByArtist,
+  searchSong,
 };
