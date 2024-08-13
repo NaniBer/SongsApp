@@ -8,8 +8,10 @@ const {
   countPlaylists,
   searchPlaylist,
 } = require("../controller/playlistController");
+const Playlist = require("../model/playlist");
 router.post("/createPlaylist", async (req, res) => {
   const { name, description, songs, user } = req.body;
+  console.log(name, description, songs, user);
 
   try {
     const result = await createPlaylist(name, description, songs, user);
@@ -151,7 +153,7 @@ router.get("/countPlaylist/:id", async (req, res) => {
     });
   }
 });
-router.get("/searchPlaylsit", async (req, res) => {
+router.get("/searchPlaylist", async (req, res) => {
   const { userid, name } = req.query; // Use req.query for query parameters
 
   try {
@@ -174,6 +176,11 @@ router.get("/searchPlaylsit", async (req, res) => {
       message: "Internal server error occurred while serching the playlist.",
     });
   }
+});
+
+router.get("/get", async (req, res) => {
+  const playlists = await Playlist.find();
+  console.log(playlists);
 });
 
 module.exports = router;

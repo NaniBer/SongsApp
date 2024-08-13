@@ -47,9 +47,10 @@ const getPlaylists = async (userId) => {
     // Find all playlists associated with the user
     const playlists = await Playlist.find({ user: userId });
 
+    console.log(playlists);
     return {
       success: true,
-      playlists,
+      playlists: playlists,
     };
   } catch (error) {
     console.error("Error retrieving playlists:", error);
