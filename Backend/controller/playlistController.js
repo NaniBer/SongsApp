@@ -42,8 +42,9 @@ const createPlaylist = async (name, description, songs, user) => {
   }
 };
 
-const getPlaylists = async (userId) => {
+const getPlaylistsOfUser = async (userId) => {
   try {
+    console.log(userId);
     // Find all playlists associated with the user
     const playlists = await Playlist.find({ user: userId });
 
@@ -179,7 +180,7 @@ module.exports = {
   createPlaylist,
   updatePlaylist,
   deletePlaylist,
-  getPlaylists,
+  getPlaylistsOfUser,
   countPlaylists,
   searchPlaylist,
 };

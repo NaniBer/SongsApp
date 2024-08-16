@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {
   createPlaylist,
-  getPlaylists,
+  getPlaylistsOfUser,
   updatePlaylist,
   deletePlaylist,
   countPlaylists,
@@ -45,10 +45,10 @@ router.post("/createPlaylist", async (req, res) => {
   }
 });
 
-router.get("/getPlaylists/:id", async (req, res) => {
+router.get("/getPlaylistsOfUser/:id", async (req, res) => {
   const id = req.params.id;
   try {
-    const result = await getPlaylists(id);
+    const result = await getPlaylistsOfUser(id);
 
     if (!result) {
       return res.status(404).json({
