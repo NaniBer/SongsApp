@@ -1,5 +1,6 @@
 import React from "react";
 import SearchBar from "../components/SearchBar";
+import SongList from "../components/SongList";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 
@@ -18,21 +19,16 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
     console.log(text);
   };
   return (
-    <div className="flex">
-      {/* <h1>{title}</h1>
-      <p>{description}</p>
-      <ul>
-        {items.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul> */}
-      <p>My Library</p>
-      <div className="">
-        <div className="flex gap-4">
+    <div>
+      <div className="flex justify-between mt-7 mr-14">
+        <div className="flex-1">
+          <p className="text-2xl font-bold">My Library</p>
+        </div>
+        <div className="flex  items-end gap-4">
           <div className="rounded-full w-80 border-2 border-gray-200 h-12">
             <SearchBar onSearch={handleSearch} />
           </div>
-          <div className="rounded-full w-full">
+          <div className="rounded-full">
             <Button
               startIcon={<AddIcon />}
               variant="contained"
@@ -49,6 +45,9 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
             </Button>
           </div>
         </div>
+      </div>
+      <div>
+        <SongList />
       </div>
     </div>
   );
