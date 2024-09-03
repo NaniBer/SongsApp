@@ -5,6 +5,7 @@ import AddIcon from "@mui/icons-material/Add";
 import NewRelease from "../components/NewRelease";
 import RightSideNav from "../components/RightSideNav";
 import SongsList from "../components/SongsList";
+import PlaylistList from "../components/PlaylistList";
 
 interface DashboardPageProps {
   title: string;
@@ -12,6 +13,7 @@ interface DashboardPageProps {
   items: string[];
 }
 interface Song {
+  id: string;
   title: string;
   artist: string;
   album?: string;
@@ -19,15 +21,19 @@ interface Song {
   releaseDate?: Date;
   duration?: number;
   user?: string;
+  fav: boolean;
 }
 
-const DashboardPage: React.FC<DashboardPageProps> = ({
-  title,
-  description,
-  items,
-}) => {
+interface Playlist {
+  name: string;
+  description: string;
+  songsCount: number;
+}
+
+const DashboardPage: React.FC<DashboardPageProps> = () => {
   const [songList, setSongList] = useState<Song[]>([
     {
+      id: "1",
       title: "Shape of You",
       artist: "Ed Sheeran",
       album: "Divide",
@@ -35,8 +41,10 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
       releaseDate: new Date("2017-01-06"),
       duration: 233,
       user: "60d21b4667d0d8992e610c85",
+      fav: true,
     },
     {
+      id: "2",
       title: "Blinding Lights",
       artist: "The Weeknd",
       album: "After Hours",
@@ -44,8 +52,10 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
       releaseDate: new Date("2019-11-29"),
       duration: 200,
       user: "60d21b4667d0d8992e610c86",
+      fav: true,
     },
     {
+      id: "3",
       title: "Levitating",
       artist: "Dua Lipa",
       album: "Future Nostalgia",
@@ -53,6 +63,29 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
       releaseDate: new Date("2020-03-27"),
       duration: 203,
       user: "60d21b4667d0d8992e610c87",
+      fav: false,
+    },
+  ]);
+  const [playlist, setPlaylist] = useState<Playlist[]>([
+    {
+      name: "Chill Vibes",
+      description: "A collection of relaxing and chill songs.",
+      songsCount: 2,
+    },
+    {
+      name: "Workout Hits",
+      description: "Energetic tracks to boost your workout sessions.",
+      songsCount: 2,
+    },
+    {
+      name: "Classical Essentials",
+      description: "Timeless classical music for focus and relaxation.",
+      songsCount: 2,
+    },
+    {
+      name: "Summer Hits",
+      description: "Top summer tracks to enjoy the sunny season.",
+      songsCount: 2,
     },
   ]);
 
@@ -94,7 +127,14 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
             <RightSideNav />
           </div>
         </div>
-        <SongsList songs={songList} />
+        <div className="flex">
+          <div className="flex-grow p-4">
+            <SongsList songs={songList} />
+          </div>
+          <div className="w-1/4 p-4">
+            <PlaylistList playlist={playlist} />
+          </div>
+        </div>
       </div>
     </div>
   );
