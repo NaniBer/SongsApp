@@ -35,17 +35,17 @@ const SongsList: React.FC<SongsListProps> = ({ songs }) => {
   }
 
   return (
-    <div className="p-8">
-      <h2 className="text-4xl font-bold mb-10">Song List</h2>
+    <div className="p-2 mb-4">
+      <h2 className="text-4xl font-bold mb-5 text-gray-200">Song List</h2>
       <table className="min-w-full rounded-2xl p-10 shadow-lg text-xl  ">
         <thead>
           <tr className="border-b border-gray-400 pb-4">
-            <th className="py-6 px-4 text-left text-gray-700">Title</th>
-            <th className="py-6 px-4 text-left text-gray-700">Artist</th>
-            <th className="py-6 px-4 text-left text-gray-700">Album</th>
-            <th className="py-6 px-4 text-left text-gray-700">Genre</th>
-            <th className="py-6 px-4 text-left text-gray-700">Release Date</th>
-            <th className="py-6 px-4 text-left text-gray-700">Duration</th>
+            <th className="py-6 px-4 text-left text-gray-300">Title</th>
+            <th className="py-6 px-4 text-left text-gray-300">Artist</th>
+            <th className="py-6 px-4 text-left text-gray-300">Album</th>
+            <th className="py-6 px-4 text-left text-gray-300">Genre</th>
+            <th className="py-6 px-4 text-left text-gray-300">Release Date</th>
+            <th className="py-6 px-4 text-left text-gray-300">Duration</th>
           </tr>
         </thead>
         <tbody>
@@ -53,23 +53,31 @@ const SongsList: React.FC<SongsListProps> = ({ songs }) => {
             <tr
               key={index}
               className={`${
-                index % 2 === 0 ? "bg-gray-50" : "bg-gray-100"
+                index % 2 === 0 ? "bg-tableEven" : "bg-tableOdd"
               } border-b border-gray-200`}
             >
-              <td className="py-8 px-4 text-left">{song.title}</td>
-              <td className="py-2 px-4 text-left">{song.artist}</td>
-              <td className="py-2 px-4 text-left">{song.album || "-"}</td>
-              <td className="py-2 px-4 text-left">{song.genre || "-"}</td>
-              <td className="py-2 px-4 text-left">
+              <td className="py-8 px-4 text-left text-gray-300">
+                {song.title}
+              </td>
+              <td className="py-2 px-4 text-left text-gray-300">
+                {song.artist}
+              </td>
+              <td className="py-2 px-4 text-left text-gray-300">
+                {song.album || "-"}
+              </td>
+              <td className="py-2 px-4 text-left text-gray-300">
+                {song.genre || "-"}
+              </td>
+              <td className="py-2 px-4 text-left text-gray-300">
                 {song.releaseDate ? song.releaseDate.toDateString() : "-"}
               </td>
-              <td className="py-2 px-4 text-left">
+              <td className="py-2 px-4 text-left text-gray-300">
                 {song.duration ? formatDuration(song.duration) : "-"}
               </td>
-              <td className="py-2 px-4 text-left">
+              <td className="py-2 px-4 text-left text-gray-300">
                 <Tooltip
                   title={
-                    <span className="text-base ">
+                    <span className="text-base text-gray-300">
                       {song.fav ? "Remove from Favorites" : "Add to Favorites"}
                     </span>
                   }

@@ -17,7 +17,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">
-            <SearchIcon />
+            <SearchIcon sx={{ color: "#FFFFFF" }} />{" "}
+            {/* Set the icon color to white */}
           </InputAdornment>
         ),
         sx: {
@@ -25,6 +26,13 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
             border: "none", // Removes the border
           },
           height: "48px",
+          color: "#FFFFFF", // Set the input text color to white
+          "& .MuiInputBase-input": {
+            color: "#FFFFFF", // Ensure the text inside the input is white
+          },
+          "& .MuiInputBase-input::placeholder": {
+            color: "#FFFFFF", // Set the placeholder text color to white
+          },
         },
       }}
     />

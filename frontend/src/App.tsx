@@ -1,19 +1,18 @@
 import React from "react";
-import LeftSideNav from "./components/LeftSideNav"; // Adjust the path
-import DashboardPage from "./pages/DashboardPage"; // Adjust the path
+
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import LandingPage from "./pages/LandingPage";
 
 const App: React.FC = () => {
   return (
-    <div className="flex h-screen">
-      <LeftSideNav />
-      <div className="flex-grow p-5">
-        <DashboardPage
-          title="Dashboard"
-          description="This is the dashboard page."
-          items={["Item 1", "Item 2", "Item 3"]}
-        />
-      </div>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        {/* <Route path="/about" element={<AboutPage />} /> */}
+        {/* Add more routes as needed */}
+      </Routes>
+    </Router>
   );
 };
+
 export default App;

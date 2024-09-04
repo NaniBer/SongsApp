@@ -7,11 +7,6 @@ import RightSideNav from "../components/RightSideNav";
 import SongsList from "../components/SongsList";
 import PlaylistList from "../components/PlaylistList";
 
-interface DashboardPageProps {
-  title: string;
-  description: string;
-  items: string[];
-}
 interface Song {
   id: string;
   title: string;
@@ -30,7 +25,7 @@ interface Playlist {
   songsCount: number;
 }
 
-const DashboardPage: React.FC<DashboardPageProps> = () => {
+const DashboardPage = () => {
   const [songList, setSongList] = useState<Song[]>([
     {
       id: "1",
@@ -94,44 +89,27 @@ const DashboardPage: React.FC<DashboardPageProps> = () => {
   };
   return (
     <div>
-      <div className="flex justify-between mt-7 mr-14">
-        <div className="flex-1"></div>
-        <div className="flex  items-end gap-4">
-          <div className="rounded-full w-80 border-2 border-gray-200 h-12">
-            <SearchBar onSearch={handleSearch} />
-          </div>
-          <div className="rounded-full">
-            <Button
-              startIcon={<AddIcon />}
-              variant="contained"
-              sx={{
-                borderRadius: "9999px",
-                height: "48px",
-                backgroundColor: "#fea6ff",
-                color: "black",
-                fontWeight: 550,
-                width: "150px",
-              }}
-            >
-              Add music
-            </Button>
-          </div>
+      <div className="flex">
+        <div className="flex-grow p-4">
+          <NewRelease {...songList[0]} />
+          <SongsList songs={songList} />
         </div>
-      </div>
-      <div>
-        <div className="flex">
-          <div className="flex-grow p-4">
-            <NewRelease {...songList[0]} />
+        <div className="divide-y">
+          <div className="flex gap-4 mb-5">
+            <div className="rounded-full w-80 border-2 border-tableOdd">
+              <SearchBar onSearch={handleSearch} />
+            </div>
+            <div className="rounded-full">
+              <button className="flex items-center justify-center gap-2 rounded-full h-12 w-36 bg-[#726185] hover:bg-[#685978] text-black font-semibold">
+                <AddIcon />
+                Add music
+              </button>
+            </div>
           </div>
-          <div className="w-1/4 p-4">
+          <div className="w-11/12">
             <RightSideNav />
           </div>
-        </div>
-        <div className="flex">
-          <div className="flex-grow p-4">
-            <SongsList songs={songList} />
-          </div>
-          <div className="w-1/4 p-4">
+          <div>
             <PlaylistList playlist={playlist} />
           </div>
         </div>
