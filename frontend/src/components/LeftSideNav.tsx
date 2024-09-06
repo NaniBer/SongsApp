@@ -20,8 +20,9 @@ const Sidebar: React.FC<SidebarProps> = ({ setActivePage }) => {
     { name: "Artists", icon: <Person2RoundedIcon fontSize="large" /> },
   ];
   const handleButtonClick = (buttonName: string) => {
+    console.log(buttonName);
     setActiveButton(buttonName);
-    setActivePage(buttonName); // Update the active page in LandingPage
+    setActivePage(buttonName);
   };
 
   return (
@@ -53,7 +54,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setActivePage }) => {
                   ? "bg-gradient-to-r from-blue-600 to-purple-700 shadow-lg text-white"
                   : "hover:bg-gray-700 hover:shadow-lg"
               }`}
-              onClick={() => setActiveButton(button.name)}
+              onClick={() => handleButtonClick(button.name)}
             >
               {button.icon}
               <span className="font-medium">{button.name}</span>

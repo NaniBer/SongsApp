@@ -95,7 +95,7 @@ const DashboardPage = () => {
           <SongsList songs={songList} />
         </div>
         <div className="divide-y">
-          <div className="flex gap-4 mb-5">
+          <div className="flex gap-4 mb-5 mt-4">
             <div className="rounded-full w-80 border-2 border-tableOdd">
               <SearchBar onSearch={handleSearch} />
             </div>

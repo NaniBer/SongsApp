@@ -9,6 +9,7 @@ interface Playlist {
   description?: string;
   songs: string[];
   user: string;
+  genre: string[]; // Updated to be an array of genres
   createdAt: Date;
   updatedAt: Date;
 }
@@ -24,6 +25,7 @@ const PlaylistPage: React.FC = () => {
       description: "A collection of relaxing tunes.",
       songs: ["song1", "song2"],
       user: "user1",
+      genre: ["Lo-fi", "Chill"],
       createdAt: new Date(),
       updatedAt: new Date(),
     },
@@ -32,6 +34,7 @@ const PlaylistPage: React.FC = () => {
       description: "The most popular songs right now.",
       songs: ["song3", "song4"],
       user: "user2",
+      genre: ["Pop", "Dance"],
       createdAt: new Date(),
       updatedAt: new Date(),
     },
@@ -40,122 +43,11 @@ const PlaylistPage: React.FC = () => {
       description: "Energetic songs to keep you motivated.",
       songs: ["song5", "song6"],
       user: "user3",
+      genre: ["Hip-Hop", "Electronic"],
       createdAt: new Date(),
       updatedAt: new Date(),
     },
-    {
-      name: "Workout Mix",
-      description: "Energetic songs to keep you motivated.",
-      songs: ["song5", "song6"],
-      user: "user3",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      name: "Workout Mix",
-      description: "Energetic songs to keep you motivated.",
-      songs: ["song5", "song6"],
-      user: "user3",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      name: "Workout Mix",
-      description: "Energetic songs to keep you motivated.",
-      songs: ["song5", "song6"],
-      user: "user3",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      name: "Workout Mix",
-      description: "Energetic songs to keep you motivated.",
-      songs: ["song5", "song6"],
-      user: "user3",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      name: "Workout Mix",
-      description: "Energetic songs to keep you motivated.",
-      songs: ["song5", "song6"],
-      user: "user3",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      name: "Workout Mix",
-      description: "Energetic songs to keep you motivated.",
-      songs: ["song5", "song6"],
-      user: "user3",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      name: "Workout Mix",
-      description: "Energetic songs to keep you motivated.",
-      songs: ["song5", "song6"],
-      user: "user3",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      name: "Workout Mix",
-      description: "Energetic songs to keep you motivated.",
-      songs: ["song5", "song6"],
-      user: "user3",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      name: "Workout Mix",
-      description: "Energetic songs to keep you motivated.",
-      songs: ["song5", "song6"],
-      user: "user3",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      name: "Workout Mix",
-      description: "Energetic songs to keep you motivated.",
-      songs: ["song5", "song6"],
-      user: "user3",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      name: "Workout Mix",
-      description: "Energetic songs to keep you motivated.",
-      songs: ["song5", "song6"],
-      user: "user3",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-
-    {
-      name: "Workout Mix",
-      description: "Energetic songs to keep you motivated.",
-      songs: ["song5", "song6"],
-      user: "user3",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      name: "Workout Mix",
-      description: "Energetic songs to keep you motivated.",
-      songs: ["song5", "song6"],
-      user: "user3",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      name: "Workout Mix",
-      description: "Energetic songs to keep you motivated.",
-      songs: ["song5", "song6"],
-      user: "user3",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
+    // Add more playlists as needed
   ];
 
   // Simulate fetching playlists data
@@ -177,7 +69,7 @@ const PlaylistPage: React.FC = () => {
             {playlists.map((playlist, index) => (
               <div
                 key={index}
-                className="p-4 bg-bgColor rounded-lg shadow-lg hover:scale-105"
+                className="p-4 bg-bgColor rounded-lg shadow-lg hover:scale-105 transition-transform"
               >
                 <h3 className="text-xl font-bold text-white">
                   {playlist.name}
@@ -188,6 +80,10 @@ const PlaylistPage: React.FC = () => {
                 <p className="text-gray-400 mt-2">
                   Songs: {playlist.songs.length}
                 </p>
+                <p className="text-gray-400 mt-2">
+                  Genre: {playlist.genre.join(", ")}
+                </p>{" "}
+                {/* Display genre as a comma-separated list */}
                 <p className="text-gray-400 mt-2">
                   Created: {new Date(playlist.createdAt).toLocaleDateString()}
                 </p>
@@ -207,8 +103,8 @@ const PlaylistPage: React.FC = () => {
               Add Playlist
             </button>
           </div>
-          <div className="rounded-full"></div>
         </div>
+
         <div className="w-11/12"></div>
         <div>
           <PlaylistPick {...playlists[0]} />

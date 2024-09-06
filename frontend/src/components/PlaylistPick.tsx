@@ -31,7 +31,7 @@ const PlaylistPick: React.FC<PlaylistPickProps> = ({
           </p>
           <p className="text-xl mt-6 flex items-center text-gray-300">
             <MusicNoteIcon fontSize="large" className="mr-2" />
-            <span>{songs.length} Songs</span>
+            <span>{songs?.length} Songs</span>
           </p>
 
           <button className="bg-btnColor text-white font-semibold py-2 px-4 mt-5 rounded-lg shadow-md transition duration-300 ease-in-out">

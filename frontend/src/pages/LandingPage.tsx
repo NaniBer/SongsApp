@@ -4,6 +4,7 @@ import DashboardPage from "../pages/DashboardPage";
 import BrowsePage from "./BrowsePage";
 import PlaylistPage from "./PlaylistPage";
 import AlbumsPage from "./AlbumsPage";
+import ArtistPage from "./ArtistPage";
 
 const LandingPage = () => {
   const [activePage, setActivePage] = useState<string>("Home");
@@ -18,6 +19,8 @@ const LandingPage = () => {
         return <PlaylistPage />;
       case "Albums":
         return <AlbumsPage />;
+      case "Artists":
+        return <ArtistPage />;
       default:
         return <DashboardPage />;
     }

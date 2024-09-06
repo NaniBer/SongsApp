@@ -11,7 +11,7 @@ const RightSideNav = () => {
   ]);
 
   return (
-    <div className="p-8 mb-10 mt-4">
+    <div className="p-8 mb-8 mt-4">
       <p className="font-semibold text-4xl mb-8 text-gray-200 ">Genres</p>
       <div className="flex flex-wrap gap-4 mt-4 ml-5 text-gray-300">
         {genreList.map((genre, index) => (
