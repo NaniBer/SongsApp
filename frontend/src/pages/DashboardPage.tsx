@@ -96,11 +96,11 @@ const DashboardPage = () => {
         </div>
         <div className="divide-y">
           <div className="flex gap-4 mb-5 mt-4">
-            <div className="rounded-full w-80 border-2 border-tableOdd">
+            <div className="rounded-full w-60 h-9 border-2 border-tableOdd">
               <SearchBar onSearch={handleSearch} />
             </div>
             <div className="rounded-full">
-              <button className="flex items-center justify-center gap-2 rounded-full h-12 w-36 bg-[#726185] hover:bg-[#685978] text-black font-semibold">
+              <button className="flex items-center justify-center gap-2 rounded-full h-9 w-32 bg-[#726185] hover:bg-[#685978] text-black font-semibold  text-sm">
                 <AddIcon />
                 Add music
               </button>

@@ -68,14 +68,14 @@ const ArtistPage: React.FC = () => {
     <div className="flex h-full m-4 mt-8 ml-10">
       <div className="flex-grow h-full">
         <div className="m-2 h-full">
-          <p className="font-semibold text-4xl mb-8 text-gray-300">Artists</p>
-          <div className="space-y-4 pl-10 w-full overflow-auto custom-scrollbar">
+          <p className="font-semibold text-xl mb-8 text-gray-300">Artists</p>
+          <div className="space-y-4 pl-2 w-full overflow-auto custom-scrollbar">
             {artist.map((artist, index) => (
               <div
                 key={index}
-                className="p-6 bg-bgColor rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:bg-opacity-90"
+                className="p-4 bg-bgColor rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:bg-opacity-90"
               >
-                <h3 className="text-2xl font-bold text-white">{artist.name}</h3>
+                <h3 className="font-bold text-white">{artist.name}</h3>
                 <p className="text-gray-400 mt-1">
                   Total Songs: {artist.totalSongs}
                 </p>
@@ -99,7 +99,7 @@ const ArtistPage: React.FC = () => {
             <SearchBar onSearch={handleSearch} />
           </div>
           <div className="rounded-full">
-            <button className="flex items-center justify-center gap-2 rounded-full h-12 w-36 bg-[#726185] hover:bg-[#685978] text-black font-semibold">
+            <button className="flex items-center justify-center gap-2 rounded-full h-9 w-32 bg-[#726185] hover:bg-[#685978] text-black font-semibold text-sm">
               <AddIcon />
               Add Song
             </button>

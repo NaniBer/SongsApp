@@ -64,27 +64,25 @@ const PlaylistPage: React.FC = () => {
     <div className="flex h-full m-4 mt-8 ml-10">
       <div className="flex-grow h-full">
         <div className="m-2 h-full">
-          <p className="font-semibold text-4xl mb-8 text-gray-300">Playlists</p>
-          <div className="space-y-4 pl-10 w-full overflow-auto custom-scrollbar">
+          <p className="font-semibold text-xl mb-8 text-gray-300">Playlists</p>
+          <div className="space-y-4 pl-2 w-full overflow-auto custom-scrollbar">
             {playlists.map((playlist, index) => (
               <div
                 key={index}
                 className="p-4 bg-bgColor rounded-lg shadow-lg hover:scale-105 transition-transform"
               >
-                <h3 className="text-xl font-bold text-white">
-                  {playlist.name}
-                </h3>
+                <h3 className="font-bold text-white">{playlist.name}</h3>
                 {playlist.description && (
-                  <p className="text-gray-300 mt-2">{playlist.description}</p>
+                  <p className="text-gray-300 mt-1">{playlist.description}</p>
                 )}
-                <p className="text-gray-400 mt-2">
+                <p className="text-gray-400 mt-1">
                   Songs: {playlist.songs.length}
                 </p>
-                <p className="text-gray-400 mt-2">
+                <p className="text-gray-400 mt-1">
                   Genre: {playlist.genre.join(", ")}
                 </p>{" "}
                 {/* Display genre as a comma-separated list */}
-                <p className="text-gray-400 mt-2">
+                <p className="text-gray-400 mt-1">
                   Created: {new Date(playlist.createdAt).toLocaleDateString()}
                 </p>
               </div>
@@ -98,14 +96,12 @@ const PlaylistPage: React.FC = () => {
             <SearchBar onSearch={handleSearch} />
           </div>
           <div className="rounded-full">
-            <button className="flex items-center justify-center gap-2 rounded-full h-12 w-36 bg-[#726185] hover:bg-[#685978] text-black font-semibold">
+            <button className="flex items-center justify-center gap-2 rounded-full h-9 w-32 bg-[#726185] hover:bg-[#685978] text-black font-semibold  text-sm mr-3">
               <AddIcon />
-              Add Playlist
+              Add playlist
             </button>
           </div>
         </div>
-
-        <div className="w-11/12"></div>
         <div>
           <PlaylistPick {...playlists[0]} />
         </div>

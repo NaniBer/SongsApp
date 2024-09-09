@@ -36,16 +36,15 @@ const SongsList: React.FC<SongsListProps> = ({ songs }) => {
 
   return (
     <div className="p-2 mb-4">
-      <h2 className="text-4xl font-bold mb-5 text-gray-200">Song List</h2>
-      <table className="min-w-full rounded-2xl p-10 shadow-lg text-xl  ">
+      <h2 className="text-xl font-bold mb-2 text-gray-200">Song List</h2>
+      <table className="min-w-full rounded-2xl p-3 shadow-lg text-sm  ">
         <thead>
           <tr className="border-b border-gray-400 pb-4">
-            <th className="py-6 px-4 text-left text-gray-300">Title</th>
-            <th className="py-6 px-4 text-left text-gray-300">Artist</th>
-            <th className="py-6 px-4 text-left text-gray-300">Album</th>
-            <th className="py-6 px-4 text-left text-gray-300">Genre</th>
-            <th className="py-6 px-4 text-left text-gray-300">Release Date</th>
-            <th className="py-6 px-4 text-left text-gray-300">Duration</th>
+            <th className="py-6 px-2 text-left text-gray-300">Title</th>
+            <th className="py-6 px-2 text-left text-gray-300">Artist</th>
+            <th className="py-6 px-2 text-left text-gray-300">Album</th>
+            <th className="py-6 px-2 text-left text-gray-300">Genre</th>
+            <th className="py-6 px-2 text-left text-gray-300">Duration</th>
           </tr>
         </thead>
         <tbody>
@@ -56,7 +55,7 @@ const SongsList: React.FC<SongsListProps> = ({ songs }) => {
                 index % 2 === 0 ? "bg-tableEven" : "bg-tableOdd"
               } border-b border-gray-200`}
             >
-              <td className="py-8 px-4 text-left text-gray-300">
+              <td className="py-2 px-4 text-left text-gray-300">
                 {song.title}
               </td>
               <td className="py-2 px-4 text-left text-gray-300">
@@ -67,9 +66,6 @@ const SongsList: React.FC<SongsListProps> = ({ songs }) => {
               </td>
               <td className="py-2 px-4 text-left text-gray-300">
                 {song.genre || "-"}
-              </td>
-              <td className="py-2 px-4 text-left text-gray-300">
-                {song.releaseDate ? song.releaseDate.toDateString() : "-"}
               </td>
               <td className="py-2 px-4 text-left text-gray-300">
                 {song.duration ? formatDuration(song.duration) : "-"}

@@ -54,23 +54,21 @@ const RandomPick: React.FC<RandomPickProps> = ({
     <div className="p-4 pt-2">
       {playlist && (
         <div>
-          <p className="font-semibold text-4xl mb-8 text-gray-300">
+          <p className="font-semibold text-2xl mb-4 text-gray-300">
             Playlist Pick{" "}
           </p>
           <div className="mb-8 bg-bgColor rounded-2xl p-10 shadow-lg flex justify-between items-center">
             <div>
-              <p className="text-2xl font-bold text-gray-200">
-                {playlist.name}
-              </p>
-              <p className="text-xl mt-6 flex items-center text-gray-300">
-                <DescriptionIcon fontSize="large" className="mr-2" />
+              <p className="text-xl font-bold text-gray-200">{playlist.name}</p>
+              <p className="mt-3 flex items-center text-gray-300">
+                <DescriptionIcon fontSize="medium" className="mr-1" />
                 <span>{playlist.description}</span>
               </p>
-              <p className="text-xl mt-6 flex items-center text-gray-300">
-                <MusicNoteIcon fontSize="large" className="mr-2" />
+              <p className="mt-3 flex items-center text-gray-300">
+                <MusicNoteIcon fontSize="medium" className="mr-1" />
                 <span>{playlist.songs.length} Songs</span>
               </p>
-              <button className="bg-btnColor text-white font-semibold py-2 px-4 mt-5 rounded-lg shadow-md transition duration-300 ease-in-out">
+              <button className="bg-btnColor text-white font-semibold py-1 px-2 mt-3 rounded-lg shadow-md transition duration-300 ease-in-out">
                 View Details
               </button>
             </div>
@@ -79,19 +77,19 @@ const RandomPick: React.FC<RandomPickProps> = ({
       )}
       {album && (
         <div>
-          <p className="font-semibold text-4xl mb-8 text-gray-300">
+          <p className="font-semibold text-2xl mb-4 text-gray-300">
             Album Pick{" "}
           </p>
           <div className="mb-8 bg-bgColor rounded-2xl p-10 shadow-lg flex justify-between items-center">
             <div>
-              <p className="text-2xl font-bold text-gray-200">{album.name}</p>
-              <p className="text-xl mt-6 flex items-center text-gray-300">
-                <DescriptionIcon fontSize="large" className="mr-2" />
+              <p className="text-xl font-bold text-gray-200">{album.name}</p>
+              <p className="mt-3 flex items-center text-gray-300">
+                <DescriptionIcon fontSize="medium" className="mr-2" />
                 <span>{album.artist}</span>
               </p>
-              <p className="text-xl mt-4 flex text-gray-200">
+              <p className=" mt-3 flex text-gray-200">
                 <MusicNoteIcon
-                  fontSize="large"
+                  fontSize="medium"
                   className="text-indigo-400 mb-2"
                 />
                 <span className="font-medium tracking-wide mr-10">
@@ -106,7 +104,7 @@ const RandomPick: React.FC<RandomPickProps> = ({
                 </ul>
               </p>
 
-              <p className="text-xl mt-4 flex flex-col ">
+              <p className=" mt-4 flex flex-col ">
                 <span className="font-medium text-gray-200">
                   Genre{album.genre.length > 1 ? "s" : ""}
                 </span>
@@ -123,10 +121,10 @@ const RandomPick: React.FC<RandomPickProps> = ({
               </p>
 
               <p className="text-xl mt-6 flex items-center text-gray-300">
-                <DateRangeIcon fontSize="large" className="mr-2" />
+                <DateRangeIcon fontSize="medium" className="mr-2" />
                 <span>{album.releaseDate.toDateString()} </span>
               </p>
-              <button className="bg-btnColor text-white font-semibold py-2 px-4 mt-5 rounded-lg shadow-md transition duration-300 ease-in-out">
+              <button className="bg-btnColor text-white font-semibold py-1 px-2 mt-3 rounded-lg shadow-md transition duration-300 ease-in-out">
                 View Details
               </button>
             </div>
@@ -135,17 +133,17 @@ const RandomPick: React.FC<RandomPickProps> = ({
       )}
       {artist && (
         <div>
-          <p className="font-semibold text-4xl mb-8 text-gray-300">
+          <p className="font-semibold text-2xl mb-4 text-gray-300">
             Artist Pick{" "}
           </p>
           <div className="mb-8 bg-bgColor rounded-2xl p-10 shadow-lg flex justify-between items-center">
             <div>
-              <p className="text-2xl font-bold text-gray-200">{artist.name}</p>
-              <p className="text-xl mt-6 flex items-center text-gray-300">
-                <MusicNoteIcon fontSize="large" className="mr-2" />
+              <p className="text-xl font-bold text-gray-200">{artist.name}</p>
+              <p className="mt-3 flex items-center text-gray-300">
+                <MusicNoteIcon fontSize="medium" className="mr-2" />
                 <span>{artist.totalSongs} Songs</span>
               </p>
-              <p className="text-xl mt-4 flex flex-col ">
+              <p className="mt-3 flex flex-col ">
                 <span className="font-medium text-gray-200">
                   Genre{artist.genre.length > 1 ? "s" : ""}
                 </span>
@@ -162,10 +160,10 @@ const RandomPick: React.FC<RandomPickProps> = ({
               </p>
 
               <p className="text-xl mt-6 flex items-center text-gray-300">
-                <TimelapseIcon fontSize="large" className="mr-2" />
+                <TimelapseIcon fontSize="medium" className="mr-1" />
                 <span>Duration: {artist.totalDuration}</span>
               </p>
-              <button className="bg-btnColor text-white font-semibold py-2 px-4 mt-5 rounded-lg shadow-md transition duration-300 ease-in-out">
+              <button className="bg-btnColor text-white font-semibold py-1 px-2 mt-3 rounded-lg shadow-md transition duration-300 ease-in-out">
                 View Details
               </button>
             </div>

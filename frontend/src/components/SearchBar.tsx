@@ -25,7 +25,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
           "& .MuiOutlinedInput-notchedOutline": {
             border: "none", // Removes the border
           },
-          height: "48px",
+          height: "30px",
           color: "#FFFFFF", // Set the input text color to white
           "& .MuiInputBase-input": {
             color: "#FFFFFF", // Ensure the text inside the input is white

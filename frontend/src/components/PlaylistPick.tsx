@@ -19,22 +19,22 @@ const PlaylistPick: React.FC<PlaylistPickProps> = ({
 }) => {
   return (
     <div className="p-4 pt-2">
-      <p className="font-semibold text-4xl mb-8 text-gray-300">
+      <p className="font-semibold text-2xl mb-4  text-gray-300">
         Playlist Pick{" "}
       </p>
       <div className="mb-8 bg-bgColor rounded-2xl p-10 shadow-lg flex justify-between items-center">
         <div>
-          <p className="text-2xl font-bold text-gray-200">{name}</p>
-          <p className="text-xl mt-6 flex items-center text-gray-300">
-            <DescriptionIcon fontSize="large" className="mr-2" />
+          <p className="text-xl font-bold text-gray-200">{name}</p>
+          <p className=" mt-3 flex items-center text-gray-300">
+            <DescriptionIcon fontSize="medium" className="mr-1" />
             <span>{description}</span>
           </p>
-          <p className="text-xl mt-6 flex items-center text-gray-300">
-            <MusicNoteIcon fontSize="large" className="mr-2" />
+          <p className="mt-3 flex items-center text-gray-300">
+            <MusicNoteIcon fontSize="medium" className="mr-1" />
             <span>{songs?.length} Songs</span>
           </p>
 
-          <button className="bg-btnColor text-white font-semibold py-2 px-4 mt-5 rounded-lg shadow-md transition duration-300 ease-in-out">
+          <button className="bg-btnColor text-white font-semibold py-1 px-2 mt-3 rounded-lg shadow-md transition duration-300 ease-in-out">
             View Details
           </button>
         </div>

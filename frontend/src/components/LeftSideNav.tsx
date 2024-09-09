@@ -13,11 +13,11 @@ const Sidebar: React.FC<SidebarProps> = ({ setActivePage }) => {
   const [activeButton, setActiveButton] = useState<string>("Home");
 
   const buttons = [
-    { name: "Home", icon: <HomeRoundedIcon fontSize="large" /> },
-    { name: "Browse", icon: <SearchRoundedIcon fontSize="large" /> },
-    { name: "Playlist", icon: <QueueMusicRoundedIcon fontSize="large" /> },
-    { name: "Albums", icon: <AlbumRoundedIcon fontSize="large" /> },
-    { name: "Artists", icon: <Person2RoundedIcon fontSize="large" /> },
+    { name: "Home", icon: <HomeRoundedIcon fontSize="small" /> },
+    { name: "Browse", icon: <SearchRoundedIcon fontSize="small" /> },
+    { name: "Playlist", icon: <QueueMusicRoundedIcon fontSize="small" /> },
+    { name: "Albums", icon: <AlbumRoundedIcon fontSize="small" /> },
+    { name: "Artists", icon: <Person2RoundedIcon fontSize="small" /> },
   ];
   const handleButtonClick = (buttonName: string) => {
     console.log(buttonName);
@@ -26,10 +26,10 @@ const Sidebar: React.FC<SidebarProps> = ({ setActivePage }) => {
   };
 
   return (
-    <div className="m-4 mt-10">
-      <p className="font-bold text-4xl mb-12 pl-3 text-gray-200">My Music</p>
+    <div className="m-4 mt-8">
+      <p className="font-bold text-xl mb-10 pl-3 text-gray-200">My Music</p>
       <div className="flex flex-col divide-y divide-gray-300">
-        <div className="flex flex-col gap-4 pb-6">
+        <div className="flex flex-col gap-2 pb-3">
           {buttons.slice(0, 3).map((button) => (
             <button
               key={button.name}
@@ -45,11 +45,11 @@ const Sidebar: React.FC<SidebarProps> = ({ setActivePage }) => {
             </button>
           ))}
         </div>
-        <div className="flex flex-col gap-4 pt-6">
+        <div className="flex flex-col gap-2 pt-2">
           {buttons.slice(3).map((button) => (
             <button
               key={button.name}
-              className={`flex items-center gap-4 px-5 py-3 rounded-lg transition-all duration-300 transform hover:-translate-y-1 ${
+              className={`flex items-center gap-4 px-3 py-2 rounded-lg transition-all duration-300 transform hover:-translate-y-1 ${
                 activeButton === button.name
                   ? "bg-gradient-to-r from-blue-600 to-purple-700 shadow-lg text-white"
                   : "hover:bg-gray-700 hover:shadow-lg"
