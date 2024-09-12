@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchBar from "../components/SearchBar";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
@@ -6,6 +6,7 @@ import NewRelease from "../components/NewRelease";
 import RightSideNav from "../components/RightSideNav";
 import SongsList from "../components/SongsList";
 import PlaylistList from "../components/PlaylistList";
+import { UserButton, useUser } from "@clerk/clerk-react";
 
 interface Song {
   id: string;
@@ -92,25 +93,31 @@ const DashboardPage = () => {
       <div className="flex">
         <div className="flex-grow p-4">
           <NewRelease {...songList[0]} />
+
           <SongsList songs={songList} />
         </div>
-        <div className="divide-y">
-          <div className="flex gap-4 mb-5 mt-4">
-            <div className="rounded-full w-60 h-9 border-2 border-tableOdd">
-              <SearchBar onSearch={handleSearch} />
-            </div>
-            <div className="rounded-full">
-              <button className="flex items-center justify-center gap-2 rounded-full h-9 w-32 bg-[#726185] hover:bg-[#685978] text-black font-semibold  text-sm">
-                <AddIcon />
-                Add music
-              </button>
-            </div>
+        <div>
+          <div className="flex justify-end mr-10 mt-3">
+            <UserButton />
           </div>
-          <div className="w-11/12">
-            <RightSideNav />
-          </div>
-          <div>
-            <PlaylistList playlist={playlist} />
+          <div className="divide-y">
+            <div className="flex gap-4 mb-5 mt-4">
+              <div className="rounded-full w-60 h-9 border-2 border-tableOdd">
+                <SearchBar onSearch={handleSearch} />
+              </div>
+              <div className="rounded-full">
+                <button className="flex items-center justify-center gap-2 rounded-full h-9 w-32 bg-[#726185] hover:bg-[#685978] text-black font-semibold  text-sm">
+                  <AddIcon />
+                  Add music
+                </button>
+              </div>
+            </div>
+            <div className="w-11/12">
+              <RightSideNav />
+            </div>
+            <div>
+              <PlaylistList playlist={playlist} />
+            </div>
           </div>
         </div>
       </div>

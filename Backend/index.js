@@ -5,8 +5,11 @@ const session = require("express-session");
 const user = require("./routes/userRoute");
 const guest = require("./routes/GuestRoute");
 const playlist = require("./routes/playlistRoute");
+const cors = require("cors");
+const { registerUser } = require("./controller/userController");
 
 const app = express();
+app.use(cors());
 
 const url = process.env.MONGODB_URI;
 const port = process.env.PORT || 5000;
@@ -22,6 +25,39 @@ app.use(
 app.use("/user", user);
 app.use("/guest", guest);
 app.use("/playlist", playlist);
+app.post("/register", async (req, res) => {
+  const { clerkId, firstName, lastName, email } = req.body;
+  console.log(req.body);
+
+  console.log("clerkId", clerkId, firstName, lastName, email);
+  try {
+    const result = await registerUser(clerkId, firstName, lastName, email);
+
+    // Send the response based on the result
+    res.status(result.statusCode).json({
+      success: result.success,
+      statusCode: result.statusCode,
+      message: result.message,
+      user: result.user,
+    });
+
+    if (result.statusCode === 500) {
+      throw new Error(
+        "Internal server error occurred while registering the user."
+      );
+    }
+  } catch (error) {
+    console.error(
+      "Internal server error occurred while registering the user:",
+      error
+    );
+    res.status(500).json({
+      success: false,
+      statusCode: 500,
+      message: "Internal server error occurred while registering the song.",
+    });
+  }
+});
 
 mongoose
   .connect(url)

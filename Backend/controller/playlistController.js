@@ -29,7 +29,7 @@ const createPlaylist = async (name, description, songs, user) => {
     return {
       success: true,
       statusCode: 201,
-      message: "Plsylist created successfully",
+      message: "Playlist created successfully",
       playlist: newPlaylist,
     };
   } catch (error) {
