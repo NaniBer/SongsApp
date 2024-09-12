@@ -63,6 +63,28 @@ const getPlaylistsOfUser = async (userId) => {
   }
 };
 
+const getNewPlaylistOfUser = async (userId) => {
+  try {
+    console.log(userId);
+    // Find and sort new playlists, then limit to the first 3
+    const newPlaylists = await Playlist.find({ user: userId })
+      .sort({ createdAt: -1 })
+      .limit(3);
+    console.log(newPlaylists);
+    return {
+      success: true,
+      playlists: newPlaylists,
+    };
+  } catch (error) {
+    console.error("Error retrieving new playlists:", error);
+    return {
+      success: false,
+      message: "Failed to retrieve new playlists",
+      error: error.message,
+    };
+  }
+};
+
 const updatePlaylist = async (playlistId, name, description, userId) => {
   try {
     const existingPlaylist = await Playlist.findById(playlistId);
@@ -181,6 +203,7 @@ module.exports = {
   updatePlaylist,
   deletePlaylist,
   getPlaylistsOfUser,
+  getNewPlaylistOfUser,
   countPlaylists,
   searchPlaylist,
 };

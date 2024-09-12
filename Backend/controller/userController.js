@@ -34,4 +34,19 @@ const registerUser = async (clerkId, firstName, lastName, email) => {
   }
 };
 
-module.exports = { registerUser };
+const getUserId = async (clerkId) => {
+  try {
+    // Assuming User is a MongoDB model
+    const user = await User.findOne({ clerkId: clerkId }).exec();
+    if (user) {
+      return user._id; // or user.id depending on your schema
+    } else {
+      throw new Error("User not found");
+    }
+  } catch (error) {
+    console.error("Error retrieving user ID:", error);
+    throw new Error("Failed to retrieve user ID");
+  }
+};
+
+module.exports = { registerUser, getUserId };

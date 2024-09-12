@@ -10,7 +10,7 @@ const LoginPage = () => {
         <div className="flex flex-col md:flex-row items-start h-full">
           <div className="flex-grow h-full">
             <div className="w-full h-full bg-opacity-60 rounded-lg overflow-auto flex items-center justify-center">
-              <SignIn signUpUrl="/signUp" fallbackRedirectUrl={"/dashboard"} />
+              <SignIn signUpUrl="/signUp" fallbackRedirectUrl="/dashboard" />
             </div>
           </div>
         </div>

@@ -7,6 +7,10 @@ import RightSideNav from "../components/RightSideNav";
 import SongsList from "../components/SongsList";
 import PlaylistList from "../components/PlaylistList";
 import { UserButton, useUser } from "@clerk/clerk-react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { fetchNewPlaylistsRequest } from "../store/slice/playlistSlice";
+import { RootState, AppDispatch } from "../store";
 
 interface Song {
   id: string;
@@ -27,6 +31,17 @@ interface Playlist {
 }
 
 const DashboardPage = () => {
+  const dispatch = useDispatch();
+  const newPlaylists = useSelector(
+    (state: RootState) => state.playlist.newPlaylists
+  );
+  const loading = useSelector((state: RootState) => state.playlist.loading);
+  const error = useSelector((state: RootState) => state.playlist.error);
+  useEffect(() => {
+    const userId = "someUserId"; // Replace with actual user ID
+    dispatch(fetchNewPlaylistsRequest(userId));
+    console.log("hello");
+  }, [dispatch]);
   const [songList, setSongList] = useState<Song[]>([
     {
       id: "1",

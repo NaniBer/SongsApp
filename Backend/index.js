@@ -6,7 +6,7 @@ const user = require("./routes/userRoute");
 const guest = require("./routes/GuestRoute");
 const playlist = require("./routes/playlistRoute");
 const cors = require("cors");
-const { registerUser } = require("./controller/userController");
+const { registerUser, getUserId } = require("./controller/userController");
 
 const app = express();
 app.use(cors());
@@ -55,6 +55,36 @@ app.post("/register", async (req, res) => {
       success: false,
       statusCode: 500,
       message: "Internal server error occurred while registering the song.",
+    });
+  }
+});
+app.get("/getUserId", async (req, res) => {
+  const { clerkId } = req.query;
+
+  try {
+    if (!clerkId) {
+      return res.status(400).json({
+        success: false,
+        statusCode: 400,
+        message: "Clerk ID is required.",
+      });
+    }
+
+    const userId = await getUserId(clerkId); // Assuming getUserId returns userId directly
+
+    // Send the response based on the result
+    res.status(200).json({
+      success: true,
+      statusCode: 200,
+      message: "User ID retrieved successfully.",
+      userId: userId,
+    });
+  } catch (error) {
+    console.error("Error occurred while retrieving user ID:", error);
+    res.status(500).json({
+      success: false,
+      statusCode: 500,
+      message: "Internal server error occurred while retrieving the user ID.",
     });
   }
 });

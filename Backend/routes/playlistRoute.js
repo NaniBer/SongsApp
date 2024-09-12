@@ -7,6 +7,7 @@ const {
   deletePlaylist,
   countPlaylists,
   searchPlaylist,
+  getNewPlaylistOfUser,
 } = require("../controller/playlistController");
 const Playlist = require("../model/playlist");
 router.post("/createPlaylist", async (req, res) => {
@@ -50,6 +51,36 @@ router.get("/getPlaylistsOfUser/:id", async (req, res) => {
   try {
     const result = await getPlaylistsOfUser(id);
 
+    if (!result) {
+      return res.status(404).json({
+        success: false,
+        statusCode: 404,
+        message: "No playlist found with the given ID",
+        playlist: null,
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      statusCode: 200,
+      message: "Playlist fetched successfully",
+      playlist: result,
+    });
+  } catch (error) {
+    // Handle any errors that occur
+    console.error("Error fetching playlist:", error);
+    res.status(500).json({
+      success: false,
+      statusCode: 500,
+      message: "Internal server error",
+      playlist: null,
+    });
+  }
+});
+router.get("/getNew/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const result = await getNewPlaylistOfUser(id);
     if (!result) {
       return res.status(404).json({
         success: false,

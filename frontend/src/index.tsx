@@ -48,7 +48,8 @@ import DashboardPage from "./pages/DashboardPage";
 import LandingPage from "./pages/LandingPage";
 import RegisterToDatabase from "./pages/RegisterToDatabase";
 import { Provider } from "react-redux";
-import { store } from "./store";
+import store from "./store";
+
 const PUBLISHABLE_KEY = process.env.REACT_APP_PUBLISHABLE_KEY;
 
 if (!PUBLISHABLE_KEY) {

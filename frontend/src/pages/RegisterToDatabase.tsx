@@ -2,7 +2,7 @@ import { SignIn, useUser } from "@clerk/clerk-react";
 import { Email } from "@mui/icons-material";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { setUser } from "../store/userSlice";
+import { setUser } from "../store/slice/userSlice";
 import { useDispatch } from "react-redux";
 interface User {
   clerkId: any;
