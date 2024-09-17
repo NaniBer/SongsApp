@@ -37,8 +37,11 @@ const DashboardPage = () => {
   );
   const loading = useSelector((state: RootState) => state.playlist.loading);
   const error = useSelector((state: RootState) => state.playlist.error);
+  const { user } = useUser();
   useEffect(() => {
-    const userId = "someUserId"; // Replace with actual user ID
+    console.log(user);
+
+    const userId = "  "; // Replace with actual user ID
     dispatch(fetchNewPlaylistsRequest(userId));
     console.log("hello");
   }, [dispatch]);
