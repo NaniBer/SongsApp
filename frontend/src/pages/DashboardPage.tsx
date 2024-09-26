@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { fetchNewPlaylistsRequest } from "../store/slice/playlistSlice";
 import { RootState, AppDispatch } from "../store";
+import { fetchSongRequest } from "../store/slice/songSlice";
 
 interface Song {
   id: string;
@@ -29,22 +30,37 @@ interface Playlist {
   description: string;
   songsCount: number;
 }
+interface NewPlaylist {
+  name: string;
+  description: string;
+  songsCount: number;
+}
 
 const DashboardPage = () => {
   const dispatch = useDispatch();
   const newPlaylists = useSelector(
     (state: RootState) => state.playlist.newPlaylists
   );
+  const songs = useSelector((state: RootState) => state.song);
   const loading = useSelector((state: RootState) => state.playlist.loading);
   const error = useSelector((state: RootState) => state.playlist.error);
   const { user } = useUser();
+  const clerkId = user?.id;
   useEffect(() => {
-    console.log(user);
+    if (clerkId) {
+      dispatch(fetchNewPlaylistsRequest(clerkId));
+      dispatch(fetchSongRequest(clerkId));
+    }
+  }, [dispatch, clerkId]);
+  // useEffect(() => {
+  //   if (songs) {
+  //     console.log("Fetched songs:", songs); // Check the playlists here
+  //   }
+  //   if (newPlaylists) {
+  //     console.log("Fetched playlists:", newPlaylists); // Check the playlists here
+  //   }
+  // }, [songs, newPlaylists]);
 
-    const userId = "  "; // Replace with actual user ID
-    dispatch(fetchNewPlaylistsRequest(userId));
-    console.log("hello");
-  }, [dispatch]);
   const [songList, setSongList] = useState<Song[]>([
     {
       id: "1",
@@ -80,7 +96,7 @@ const DashboardPage = () => {
       fav: false,
     },
   ]);
-  const [playlist, setPlaylist] = useState<Playlist[]>([
+  const [playlist, setPlaylist] = useState<NewPlaylist[]>([
     {
       name: "Chill Vibes",
       description: "A collection of relaxing and chill songs.",
@@ -134,7 +150,7 @@ const DashboardPage = () => {
               <RightSideNav />
             </div>
             <div>
-              <PlaylistList playlist={playlist} />
+              <PlaylistList playlist={newPlaylists} />
             </div>
           </div>
         </div>

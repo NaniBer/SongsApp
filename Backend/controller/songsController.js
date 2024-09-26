@@ -58,6 +58,8 @@ const addSongs = async (
 const getSongs = async (id) => {
   try {
     const song = await Songs.find({ user: id });
+    console.log(id);
+    console.log(song);
     if (song.length == 0) {
       return null;
     }

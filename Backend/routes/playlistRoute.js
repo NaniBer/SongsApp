@@ -10,6 +10,7 @@ const {
   getNewPlaylistOfUser,
 } = require("../controller/playlistController");
 const Playlist = require("../model/playlist");
+const { getUserId } = require("../controller/userController");
 router.post("/createPlaylist", async (req, res) => {
   const { name, description, songs, user } = req.body;
   console.log(name, description, songs, user);
@@ -78,9 +79,10 @@ router.get("/getPlaylistsOfUser/:id", async (req, res) => {
   }
 });
 router.get("/getNew/:id", async (req, res) => {
-  const id = req.params.id;
+  const clerkId = req.params.id;
+  const userId = await getUserId(clerkId);
   try {
-    const result = await getNewPlaylistOfUser(id);
+    const result = await getNewPlaylistOfUser(userId);
     if (!result) {
       return res.status(404).json({
         success: false,

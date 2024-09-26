@@ -1,5 +1,7 @@
 const User = require("../model/user");
-const registerUser = async (clerkId, firstName, lastName, email) => {
+const {
+  registerUser,
+} = async (clerkId, firstName, lastName, email) => {
   try {
     const existingUser = await User.findOne({ clerkId, email });
     if (existingUser) {
@@ -36,10 +38,9 @@ const registerUser = async (clerkId, firstName, lastName, email) => {
 
 const getUserId = async (clerkId) => {
   try {
-    // Assuming User is a MongoDB model
     const user = await User.findOne({ clerkId: clerkId }).exec();
     if (user) {
-      return user._id; // or user.id depending on your schema
+      return user._id;
     } else {
       throw new Error("User not found");
     }

@@ -1,22 +1,27 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
-interface Playlist {
+interface NewPlaylist {
   name: string;
   description: string;
   songsCount: number;
 }
 
 interface PlaylistListProps {
-  playlist: Playlist[];
+  playlist: NewPlaylist[];
 }
 
 const PlaylistList: React.FC<PlaylistListProps> = ({ playlist }) => {
-  const [playlistList, setPlaylistList] = useState<Playlist[]>(playlist);
-
+  const newPlaylists = useSelector(
+    (state: RootState) => state.playlist.newPlaylists
+  );
+  const [playlistList, setPlaylistList] = useState<NewPlaylist[]>(playlist);
+  // console.log(playlistList);
   return (
     <div className="p-8">
       <p className="font-bold text-xl mb-5 text-gray-200">Playlists</p>
-      {playlistList.map((playlist, index) => (
+      {newPlaylists.map((playlist, index) => (
         <div
           key={index}
           className="mb-6 p-4 bg-bgColor shadow-lg rounded-lg transition transform hover:scale-105 cursor-pointer "

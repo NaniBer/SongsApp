@@ -4,10 +4,14 @@ interface Playlist {
   id: string;
   name: string;
 }
-
+interface NewPlaylist {
+  name: string;
+  description: string;
+  songsCount: number;
+}
 interface PlaylistState {
   playlists: Playlist[];
-  newPlaylists: Playlist[];
+  newPlaylists: NewPlaylist[];
   loading: boolean;
   error: string | null;
 }
@@ -39,7 +43,7 @@ const playlistSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    fetchNewPlaylistsSuccess(state, action: PayloadAction<Playlist[]>) {
+    fetchNewPlaylistsSuccess(state, action: PayloadAction<NewPlaylist[]>) {
       state.loading = false;
       state.newPlaylists = action.payload;
     },

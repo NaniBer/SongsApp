@@ -10,6 +10,7 @@ const {
   searchByArtist,
   searchSong,
 } = require("../controller/songsController");
+const { getUserId } = require("../controller/userController");
 const router = express.Router();
 router.get("/", async (req, res) => {
   res.json("hello from user route");
@@ -69,9 +70,11 @@ module.exports = router;
 
 //Get songs registered by a user
 router.get("/getSongs/:id", async (req, res) => {
-  const id = req.params.id;
+  const clerkId = req.params.id;
+  const userId = await getUserId(clerkId);
+  console.log;
   try {
-    const result = await getSongs(id);
+    const result = await getSongs(userId);
 
     if (!result) {
       return res.status(404).json({

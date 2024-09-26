@@ -1,5 +1,5 @@
 const Playlist = require("../model/playlist");
-
+const getUserId = require("./userController");
 const createPlaylist = async (name, description, songs, user) => {
   try {
     // Check if the song already exists
@@ -44,11 +44,11 @@ const createPlaylist = async (name, description, songs, user) => {
 
 const getPlaylistsOfUser = async (userId) => {
   try {
-    console.log(userId);
+    // console.log(userId);
     // Find all playlists associated with the user
     const playlists = await Playlist.find({ user: userId });
 
-    console.log(playlists);
+    // console.log(playlists);
     return {
       success: true,
       playlists: playlists,
@@ -65,12 +65,11 @@ const getPlaylistsOfUser = async (userId) => {
 
 const getNewPlaylistOfUser = async (userId) => {
   try {
-    console.log(userId);
-    // Find and sort new playlists, then limit to the first 3
+    // const userId = getUserId(clerkId);
+    // console.log(userId);
     const newPlaylists = await Playlist.find({ user: userId })
       .sort({ createdAt: -1 })
       .limit(3);
-    console.log(newPlaylists);
     return {
       success: true,
       playlists: newPlaylists,

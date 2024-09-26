@@ -8,29 +8,51 @@ import {
   fetchNewPlaylistsFailure,
 } from "../store/slice/playlistSlice";
 
+interface NewPlaylist {
+  name: string;
+  description: string;
+  songsCount: number;
+}
+
 interface Playlist {
   id: string;
   name: string;
+  description: string;
+  songsCount: number;
 }
-
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 // Fetch all playlists API call
 const fetchPlaylistsApi = async (userId: string): Promise<Playlist[]> => {
   const response = await fetch(`${backendUrl}/playlist/${userId}`);
+
   if (!response.ok) {
     throw new Error("Failed to fetch playlists");
   }
-  return response.json();
+  const data = await response.json();
+  return data.playlist?.playlist.playlists || [];
 };
 
 // Fetch new playlists API call
-const fetchNewPlaylistsApi = async (userId: string): Promise<Playlist[]> => {
-  const response = await fetch(`${backendUrl}/playlist/getNew/${userId}`);
+const fetchNewPlaylistsApi = async (
+  clerkId: string
+): Promise<NewPlaylist[]> => {
+  const response = await fetch(`${backendUrl}/playlist/getNew/${clerkId}`);
   if (!response.ok) {
     throw new Error("Failed to fetch new playlists");
   }
-  return response.json();
+  const data = await response.json();
+  if (!data.success) {
+    throw new Error(data.message);
+  }
+  const newPlaylists: NewPlaylist[] = data.playlist.playlists.map(
+    (item: any) => ({
+      name: item.name,
+      description: item.description,
+      songsCount: item.songs ? item.songs.length : 0,
+    })
+  );
+  return newPlaylists;
 };
 
 // Fetch all playlists saga
@@ -57,19 +79,10 @@ function* fetchNewPlaylistsSaga(action: { type: string; payload: string }) {
 }
 
 // Watcher sagas
-function* watchFetchPlaylists() {
+export function* watchFetchPlaylists() {
   yield takeEvery(fetchPlaylistsRequest.type, fetchPlaylistsSaga);
 }
 
-function* watchFetchNewPlaylists() {
+export function* watchFetchNewPlaylists() {
   yield takeEvery(fetchNewPlaylistsRequest.type, fetchNewPlaylistsSaga);
-}
-
-// Root saga
-export function* rootSaga() {
-  yield all([
-    fork(watchFetchPlaylists),
-    fork(watchFetchNewPlaylists),
-    // Add other sagas here
-  ]);
 }
