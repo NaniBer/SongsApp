@@ -48,9 +48,11 @@ router.post("/createPlaylist", async (req, res) => {
 });
 
 router.get("/getPlaylistsOfUser/:id", async (req, res) => {
-  const id = req.params.id;
+  const clerkId = req.params.id;
+  const userId = await getUserId(clerkId);
+
   try {
-    const result = await getPlaylistsOfUser(id);
+    const result = await getPlaylistsOfUser(userId);
 
     if (!result) {
       return res.status(404).json({
@@ -213,7 +215,7 @@ router.get("/searchPlaylist", async (req, res) => {
 
 router.get("/get", async (req, res) => {
   const playlists = await Playlist.find();
-  console.log(playlists);
+  // console.log(playlists);
 });
 
 module.exports = router;

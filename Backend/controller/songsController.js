@@ -58,8 +58,6 @@ const addSongs = async (
 const getSongs = async (id) => {
   try {
     const song = await Songs.find({ user: id });
-    console.log(id);
-    console.log(song);
     if (song.length == 0) {
       return null;
     }
@@ -79,7 +77,6 @@ const updateSong = async (
   releaseDate,
   duration
 ) => {
-  console.log(songId);
   try {
     const existingSong = await Songs.findById(songId);
 
@@ -234,7 +231,45 @@ const searchSong = async (userid, title) => {
     };
   }
 };
+const getNewRelasedSong = async (userId) => {
+  try {
+    const song = await Songs.find({ user: userId })
+      .sort({ createdAt: -1 })
+      .limit(1);
+    return {
+      success: true,
+      statusCode: 200,
+      data: song,
+      message: song.length > 0 ? "Song found" : "No songs found",
+    };
+  } catch (error) {
+    console.error("Error retrieving new released songs:", error);
+    return {
+      success: false,
+      message: "Failed to retrieve new released songs",
+      error: error.message,
+    };
+  }
+};
 
+const getAlbums = async (userId) => {
+  try {
+    const albums = await Songs.distinct("album", { user: userId });
+    return {
+      success: true,
+      statusCode: 200,
+      data: albums,
+      message: albums.length > 0 ? "Albums found" : "No albums found",
+    };
+  } catch (error) {
+    console.error("Error retrieving albums:", error);
+    return {
+      success: false,
+      message: "Failed to retrieve albums",
+      error: error.message,
+    };
+  }
+};
 module.exports = {
   addSongs,
   getSongs,
@@ -244,4 +279,6 @@ module.exports = {
   searchByAlbum,
   searchByArtist,
   searchSong,
+  getNewRelasedSong,
+  getAlbums,
 };

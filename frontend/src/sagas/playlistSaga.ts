@@ -15,22 +15,32 @@ interface NewPlaylist {
 }
 
 interface Playlist {
-  id: string;
   name: string;
-  description: string;
-  songsCount: number;
+  description?: string;
+  songs: string[];
+  user: string;
+  genre: string[];
+  createdAt: Date;
+  updatedAt: Date;
 }
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 // Fetch all playlists API call
 const fetchPlaylistsApi = async (userId: string): Promise<Playlist[]> => {
-  const response = await fetch(`${backendUrl}/playlist/${userId}`);
+  const response = await fetch(
+    `${backendUrl}/playlist/getPlaylistsOfUser/${userId}`
+  );
 
   if (!response.ok) {
     throw new Error("Failed to fetch playlists");
   }
   const data = await response.json();
-  return data.playlist?.playlist.playlists || [];
+
+  const playlists = data.playlist.playlists.map((item: any) => ({
+    ...item,
+    genre: item.genres.map((g: any) => g.name),
+  }));
+  return playlists;
 };
 
 // Fetch new playlists API call
@@ -68,7 +78,7 @@ function* fetchPlaylistsSaga(action: { type: string; payload: string }) {
 // Fetch new playlists saga
 function* fetchNewPlaylistsSaga(action: { type: string; payload: string }) {
   try {
-    const playlists: Playlist[] = yield call(
+    const playlists: NewPlaylist[] = yield call(
       fetchNewPlaylistsApi,
       action.payload
     );
@@ -80,6 +90,7 @@ function* fetchNewPlaylistsSaga(action: { type: string; payload: string }) {
 
 // Watcher sagas
 export function* watchFetchPlaylists() {
+  console.log("watchFetchPlaylist");
   yield takeEvery(fetchPlaylistsRequest.type, fetchPlaylistsSaga);
 }
 

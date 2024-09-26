@@ -1,8 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface Playlist {
-  id: string;
   name: string;
+  description?: string;
+  songs: string[];
+  user: string;
+  genre: string[]; // Updated to be an array of genres
+  createdAt: Date;
+  updatedAt: Date;
 }
 interface NewPlaylist {
   name: string;

@@ -10,6 +10,7 @@ const { registerUser, getUserId } = require("./controller/userController");
 
 const app = express();
 app.use(cors());
+mongoose.set("strictPopulate", false);
 
 const url = process.env.MONGODB_URI;
 const port = process.env.PORT || 5000;
@@ -27,9 +28,7 @@ app.use("/guest", guest);
 app.use("/playlist", playlist);
 app.post("/register", async (req, res) => {
   const { clerkId, firstName, lastName, email } = req.body;
-  console.log(req.body);
 
-  console.log("clerkId", clerkId, firstName, lastName, email);
   try {
     const result = await registerUser(clerkId, firstName, lastName, email);
 

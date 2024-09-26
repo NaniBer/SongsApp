@@ -1,5 +1,7 @@
 const Playlist = require("../model/playlist");
+const Song = require("../model/songs");
 const getUserId = require("./userController");
+
 const createPlaylist = async (name, description, songs, user) => {
   try {
     // Check if the song already exists
@@ -44,14 +46,22 @@ const createPlaylist = async (name, description, songs, user) => {
 
 const getPlaylistsOfUser = async (userId) => {
   try {
-    // console.log(userId);
-    // Find all playlists associated with the user
     const playlists = await Playlist.find({ user: userId });
-
-    // console.log(playlists);
+    const songIds = playlists.flatMap((playlist) => playlist.songs);
+    const songs = await Song.find({ _id: { $in: songIds } });
+    const transformedPlaylists = playlists.map((playlist) => ({
+      ...playlist._doc, // Get document properties
+      genres: playlist.songs
+        .map((songId) => {
+          const song = songs.find((s) => s._id.equals(songId));
+          return song ? { name: song.genre } : null;
+        })
+        .filter(Boolean), // Remove any nulls
+    }));
+    console.log(transformedPlaylists);
     return {
       success: true,
-      playlists: playlists,
+      playlists: transformedPlaylists,
     };
   } catch (error) {
     console.error("Error retrieving playlists:", error);

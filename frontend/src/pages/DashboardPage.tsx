@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { fetchNewPlaylistsRequest } from "../store/slice/playlistSlice";
 import { RootState, AppDispatch } from "../store";
-import { fetchSongRequest } from "../store/slice/songSlice";
+import { fetchSongRequest, setNewReleasedSong } from "../store/slice/songSlice";
 
 interface Song {
   id: string;
@@ -27,8 +27,12 @@ interface Song {
 
 interface Playlist {
   name: string;
-  description: string;
-  songsCount: number;
+  description?: string;
+  songs: string[];
+  user: string;
+  genre: string[]; // Updated to be an array of genres
+  createdAt: Date;
+  updatedAt: Date;
 }
 interface NewPlaylist {
   name: string;
@@ -41,7 +45,10 @@ const DashboardPage = () => {
   const newPlaylists = useSelector(
     (state: RootState) => state.playlist.newPlaylists
   );
-  const songs = useSelector((state: RootState) => state.song);
+  const songs = useSelector((state: RootState) => state.song.songs);
+  const newReleasedSong = useSelector(
+    (state: RootState) => state.song.newRelasedSong
+  );
   const loading = useSelector((state: RootState) => state.playlist.loading);
   const error = useSelector((state: RootState) => state.playlist.error);
   const { user } = useUser();
@@ -50,6 +57,9 @@ const DashboardPage = () => {
     if (clerkId) {
       dispatch(fetchNewPlaylistsRequest(clerkId));
       dispatch(fetchSongRequest(clerkId));
+      if (songs.length > 0) {
+        dispatch(setNewReleasedSong());
+      }
     }
   }, [dispatch, clerkId]);
   // useEffect(() => {
@@ -61,74 +71,15 @@ const DashboardPage = () => {
   //   }
   // }, [songs, newPlaylists]);
 
-  const [songList, setSongList] = useState<Song[]>([
-    {
-      id: "1",
-      title: "Shape of You",
-      artist: "Ed Sheeran",
-      album: "Divide",
-      genre: "Pop",
-      releaseDate: new Date("2017-01-06"),
-      duration: 233,
-      user: "60d21b4667d0d8992e610c85",
-      fav: true,
-    },
-    {
-      id: "2",
-      title: "Blinding Lights",
-      artist: "The Weeknd",
-      album: "After Hours",
-      genre: "Synthwave",
-      releaseDate: new Date("2019-11-29"),
-      duration: 200,
-      user: "60d21b4667d0d8992e610c86",
-      fav: true,
-    },
-    {
-      id: "3",
-      title: "Levitating",
-      artist: "Dua Lipa",
-      album: "Future Nostalgia",
-      genre: "Disco-pop",
-      releaseDate: new Date("2020-03-27"),
-      duration: 203,
-      user: "60d21b4667d0d8992e610c87",
-      fav: false,
-    },
-  ]);
-  const [playlist, setPlaylist] = useState<NewPlaylist[]>([
-    {
-      name: "Chill Vibes",
-      description: "A collection of relaxing and chill songs.",
-      songsCount: 2,
-    },
-    {
-      name: "Workout Hits",
-      description: "Energetic tracks to boost your workout sessions.",
-      songsCount: 2,
-    },
-    {
-      name: "Classical Essentials",
-      description: "Timeless classical music for focus and relaxation.",
-      songsCount: 2,
-    },
-    {
-      name: "Summer Hits",
-      description: "Top summer tracks to enjoy the sunny season.",
-      songsCount: 2,
-    },
-  ]);
-
   const handleSearch = (text: string) => {
     console.log(text);
   };
   return (
     <div>
       <div className="flex">
-        <div className="flex-grow p-4">
-          <NewRelease {...songList[0]} />
-
-          <SongsList songs={songList} />
+        <div className="flex-grow p-4 pr-2">
+          {newReleasedSong && <NewRelease />}
+          <SongsList songs={songs} />
         </div>
         <div>
           <div className="flex justify-end mr-10 mt-3">

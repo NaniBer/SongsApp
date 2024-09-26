@@ -3,6 +3,11 @@ import PlaylistPick from "../components/PlaylistPick";
 import SearchBar from "../components/SearchBar";
 import AddIcon from "@mui/icons-material/Add";
 import RandomPick from "../components/RandomPick";
+import { useUser } from "@clerk/clerk-react";
+import { useDispatch } from "react-redux";
+import { fetchAlbumRequest } from "../store/slice/songSlice";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
 // Define the TypeScript type for Playlist
 interface Albums {
@@ -15,7 +20,8 @@ interface Albums {
 }
 
 const AlbumsPage: React.FC = () => {
-  const [albums, setAlbums] = useState<Albums[]>([]);
+  // const [albums, setAlbums] = useState<Albums[]>([]);
+  const albums = useSelector((state: RootState) => state.song.albums);
 
   const sampleAlbums: Albums[] = [
     {
@@ -64,11 +70,17 @@ const AlbumsPage: React.FC = () => {
       user: "60d21b4667d0d8992e610c89",
     },
   ];
+  const dispatch = useDispatch();
+  const { user } = useUser();
+  const clerkId = user?.id;
 
   // Simulate fetching playlists data
   useEffect(() => {
     // Instead of fetching data, use sample data
-    setAlbums(sampleAlbums);
+    // setAlbums(sampleAlbums);
+    if (clerkId) {
+      dispatch(fetchAlbumRequest(clerkId));
+    }
   }, []);
 
   const handleSearch = (text: string) => {

@@ -9,6 +9,7 @@ const {
   searchByAlbum,
   searchByArtist,
   searchSong,
+  getAlbums,
 } = require("../controller/songsController");
 const { getUserId } = require("../controller/userController");
 const router = express.Router();
@@ -72,7 +73,7 @@ module.exports = router;
 router.get("/getSongs/:id", async (req, res) => {
   const clerkId = req.params.id;
   const userId = await getUserId(clerkId);
-  console.log;
+
   try {
     const result = await getSongs(userId);
 
@@ -272,6 +273,44 @@ router.get("/searchSong", async (req, res) => {
       statusCode: 500,
       message: "Internal server error occurred while processing the request.",
     });
+  }
+});
+
+router.get("/getNewRelasedSong/:id", async (req, res) => {
+  const clerkId = req.params.id;
+  try {
+    const userId = await getUserId(clerkId);
+    const result = await getNewRelasedSong(userId);
+    res.status(result.statusCode).json({
+      success: result.success,
+      statusCode: result.statusCode,
+      message: result.message,
+      data: result.data,
+    });
+  } catch (error) {
+    console.error("Error processing getNewRelasedSong request:", error);
+
+    // Handle any unexpected errors
+    res.status(500).json({
+      success: false,
+      statusCode: 500,
+      message: "Internal server error occurred while processing the request.",
+    });
+  }
+});
+router.get("/getAlbums/:id", async (req, res) => {
+  const clerkId = req.params.id;
+  try {
+    const userId = await getUserId(clerkId);
+    const result = await getAlbums(userId);
+    res.status(result.statusCode).json({
+      success: result.success,
+      statusCode: result.statusCode,
+      message: result.message,
+      data: result.data,
+    });
+  } catch (error) {
+    console.error("Error processing getAlbums request:", error);
   }
 });
 

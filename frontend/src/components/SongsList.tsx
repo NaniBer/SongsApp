@@ -55,22 +55,22 @@ const SongsList: React.FC<SongsListProps> = ({ songs }) => {
                 index % 2 === 0 ? "bg-tableEven" : "bg-tableOdd"
               } border-b border-gray-200`}
             >
-              <td className="py-2 px-4 text-left text-gray-300">
+              <td className="py-2 px-2 text-left text-gray-300">
                 {song.title}
               </td>
-              <td className="py-2 px-4 text-left text-gray-300">
+              <td className="py-2 px-2 text-left text-gray-300">
                 {song.artist}
               </td>
-              <td className="py-2 px-4 text-left text-gray-300">
+              <td className="py-2 px-2 text-left text-gray-300">
                 {song.album || "-"}
               </td>
-              <td className="py-2 px-4 text-left text-gray-300">
+              <td className="py-2 px-2 text-left text-gray-300">
                 {song.genre || "-"}
               </td>
-              <td className="py-2 px-4 text-left text-gray-300">
+              <td className="py-2 px-2 text-left text-gray-300">
                 {song.duration ? formatDuration(song.duration) : "-"}
               </td>
-              <td className="py-2 px-4 text-left text-gray-300">
+              <td className="py-2 px-2 text-left text-gray-300">
                 <Tooltip
                   title={
                     <span className="text-base text-gray-300">
